@@ -1,21 +1,19 @@
 const mongoose = require("mongoose");
-const Login = require("../api/models/login");
-const bcrypt = require('bcrypt');
+const Registration = require("../api/models/registration");
 
-
-
-const postLogin = async (req) => {
-  const salt = await bcrypt.genSalt(10);
-  let password = req.body.password;
-  password = await bcrypt.hash(password, salt);
-
-  const login = new Login({
+const postRegistration = async (req) => {
+  const registration = new Registration({
     _id: mongoose.Types.ObjectId(),
-    userid: req.body.userid,
-    password: password,
-  });
-
-  return await login.save();
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    zipcode: req.body.zipcode,
+    email: req.body.email,
+    password: req.body.password,
+    });
+  return await registration.save();
 };
 
-module.exports = postLogin;
+module.exports = postRegistration;

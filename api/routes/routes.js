@@ -9,15 +9,21 @@ router.get("/", () => {
   });
 });
 
-router.post("/login", (req, res) => {
+router.post("/registration", (req, res) => {
   postLogin(req).then(result => {
     console.log(result);
     res.status(200).json({
-      message: "Login saved.",
+      message: "Registration saved.",
       status:200,
       login: {
-        userid: result.userid,
-        password: result.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        city: req.body.city,
+        state: req.body.state,
+        zipcode: req.body.zipcode,
+        email: req.body.email,
+        password: req.body.password,
         metadata: {
           hostname: req.hostname,
           method: req.method,
@@ -27,7 +33,7 @@ router.post("/login", (req, res) => {
   })
   .catch(err => {
     res.status(500).json({
-      message: "Login failed.",
+      message: "Registration failed.",
       status: 500,
       error: {
         message: err.message,
